@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">UnscrambleAppOnMyOwn</string>
+    <string name="word_counter_string">%d of %d words</string>
+    <string name="score_string">SCORE = %d</string>
+    <string name="submit_button_label_string">SUBMIT</string>
+    <string name="skip_button_label_string">SKIP</string>
+</resources>
