@@ -1,11 +1,13 @@
 package com.huseyinuslu.unscrambleapponmyown.ui.main.data
 
-val AllOfWords = object {
+object AllOfWords {
 
-    val maxNoOfWords = 10
-    val score_increase = 20
+   const val MAX_OF_NO_WORDS = 10
+   const val SCORE_INCREASE  = 20
 
-    val list : List<String> = listOf(
+   val list : List<String> =
+
+       listOf(
         "animal",
         "auto",
         "anecdote",

@@ -1,99 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.main.MainFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/wordCountView"
-        style="@style/TextViewOnMyOwn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/word_counter_string"
-        android:paddingStart="5dp"
-        android:paddingEnd="5dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="10 of 10 WORDS" />
+    <data>
+     <variable
+         name="mainViewModel"
+         type="com.huseyinuslu.unscrambleapponmyown.ui.main.MainViewModel" />
 
-    <TextView
-        android:id="@+id/scoreView"
-        style="@style/TextViewOnMyOwn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingEnd="5dp"
-        android:paddingStart="5dp"
-        android:text="@string/score_string"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="SCORE = 20" />
+        <variable
+            name="score"
+            type="int" />
 
-    <TextView
-        android:id="@+id/scrambledWordView"
-        style="@style/TextViewOnMyOwn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?attr/textAppearanceHeadline2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline2"
-        tools:text="MALES" />
+        <variable
+            name="wordsCount"
+            type="int" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/skip_button"
-        app:layout_constraintEnd_toEndOf="@+id/scrambledWordView"
-        app:layout_constraintStart_toStartOf="@+id/scrambledWordView"
-        app:layout_constraintTop_toTopOf="@+id/submit_button">
+        <variable
+            name="maxNoOfWords"
+            type="int"/>
+    </data>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTextField_forInput"
+    <androidx.constraintlayout.widget.ConstraintLayout
+
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.main.MainFragment">
+
+        <TextView
+            android:id="@+id/wordCountView"
+            style="@style/TextViewOnMyOwn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="SELAMUN ALEYKUM" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:text="@{@string/word_counter_string(wordsCount,maxNoOfWords)}"
+            android:paddingStart="10dp"
+            android:paddingEnd="5dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="10 of 10 WORDS" />
 
-    <Button
-        android:id="@+id/submit_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:text="@string/submit_button_label_string"
-        app:layout_constraintBottom_toTopOf="@+id/skip_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textInputLayout" />
+        <TextView
+            android:id="@+id/scoreView"
+            style="@style/TextViewOnMyOwn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="10dp"
+            android:paddingStart="5dp"
+            android:text="@{@string/score_string(score)}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="SCORE = 20" />
 
-    <Button
-        android:id="@+id/skip_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:text="@string/skip_button_label_string"
-        app:layout_constraintBottom_toTopOf="@+id/guideline3"
-        app:layout_constraintEnd_toEndOf="@+id/submit_button"
-        app:layout_constraintStart_toStartOf="@+id/submit_button" />
+        <TextView
+            android:id="@+id/scrambledWordView"
+            style="@style/TextViewOnMyOwn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textAppearance="?attr/textAppearanceHeadline2"
+            app:layout_constraintEnd_toStartOf="@+id/guideline5"
+            app:layout_constraintStart_toStartOf="@+id/guideline4"
+            app:layout_constraintTop_toTopOf="@+id/guideline2"
+            android:text="@{mainViewModel.currentUnscrambledWord}"
+            tools:text="MALES" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.20" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.65" />
+            app:layout_constraintBottom_toTopOf="@+id/guideline3"
+            app:layout_constraintEnd_toStartOf="@+id/guideline5"
+            app:layout_constraintStart_toStartOf="@+id/guideline4"
+            app:layout_constraintTop_toBottomOf="@+id/scrambledWordView">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextField_forInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="228dp"
+                tools:layout_editor_absoluteY="337dp"
+                tools:text="SELAM" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/submit_button"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="@string/submit_button_label_string"
+            app:layout_constraintBottom_toTopOf="@+id/guideline3"
+            app:layout_constraintEnd_toStartOf="@+id/guideline6"
+            app:layout_constraintStart_toStartOf="@+id/guideline4"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+
+        <Button
+            android:id="@+id/skip_button"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="@string/skip_button_label_string"
+            app:layout_constraintBottom_toTopOf="@+id/guideline3"
+            app:layout_constraintEnd_toStartOf="@+id/guideline5"
+            app:layout_constraintStart_toStartOf="@+id/guideline6"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.20" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.65" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.20" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.80" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.50" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

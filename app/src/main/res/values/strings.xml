@@ -4,4 +4,8 @@
     <string name="score_string">SCORE = %d</string>
     <string name="submit_button_label_string">SUBMIT</string>
     <string name="skip_button_label_string">SKIP</string>
+    <string name="exit_game">Exit Game!</string>
+    <string name="restart_game">Restart Game!</string>
+    <string name="game_over">GAME OVER!</string>
+    <string name="you_scored_message">The game is over, your score %d , do you want to continue?</string>
 </resources>
