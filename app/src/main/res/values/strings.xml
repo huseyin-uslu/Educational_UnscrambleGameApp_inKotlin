@@ -7,5 +7,6 @@
     <string name="exit_game">Exit Game!</string>
     <string name="restart_game">Restart Game!</string>
     <string name="game_over">GAME OVER!</string>
+    <string name="set_error_false">that word is uncorrect!</string>
     <string name="you_scored_message">The game is over, your score %d , do you want to continue?</string>
 </resources>

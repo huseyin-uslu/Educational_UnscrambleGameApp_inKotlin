@@ -46,7 +46,13 @@ class MainViewModel : ViewModel() {
         }
 
     fun isAnswerCorrect(answer : String) : Boolean {
-       return currentWord == answer
+       return if(answer == currentWord){
+           _score.value = _score.value!!.plus(AllOfWords.SCORE_INCREASE)
+           getNewUnscrambledWord()
+           true
+       }else{
+           false
+       }
     }
 
     fun restartGame(){

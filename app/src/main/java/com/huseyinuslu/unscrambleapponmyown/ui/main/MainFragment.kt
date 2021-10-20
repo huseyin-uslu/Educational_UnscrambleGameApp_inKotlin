@@ -57,35 +57,50 @@ class MainFragment : Fragment() {
                 binding.wordsCount = it
             }
         }
+
+        binding.apply {
+            submitButton.setOnClickListener{submitWord()}
+            skipButton.setOnClickListener{skipWord()}
+        }
     }
 
     private fun submitWord(){
-      if(viewModel.areThereAnyWordsLeft()){
-
-      }else{
-
-      }
+        val answer = binding.editTextFieldForInput.text.toString()
+    if(viewModel.isAnswerCorrect(answer)){
+        setErrorAccordingToWhetherAnswerIsCorrectOrNot(true)
+        if(viewModel.areThereAnyWordsLeft()){
+            viewModel.getNewUnscrambledWord()
+        }else{
+            onWordsFinished()
+        }
+    }else{
+        setErrorAccordingToWhetherAnswerIsCorrectOrNot(false)
+    }
 
     }
 
     private fun skipWord(){
         if(viewModel.areThereAnyWordsLeft()){
-
+            viewModel.getNewUnscrambledWord()
         }else{
             onWordsFinished()
         }
     }
 
+    //TODO: this is where there is an error running the simulator..
     private fun setErrorAccordingToWhetherAnswerIsCorrectOrNot(error : Boolean){
         if(error){
-
+            binding.editTextFieldForInput.error = resources.getString(R.string.set_error_false)
+            binding.textInputLayout.error = resources.getString(R.string.set_error_false)
+            binding.textInputLayout.isErrorEnabled = true
         }else{
-            onWordsFinished()
+            binding.editTextFieldForInput.error = null
+            binding.textInputLayout.isErrorEnabled = false
         }
     }
 
     private fun onWordsFinished(){
-        alertDialog("Game Over.",
+        alertDialog(resources.getString(R.string.game_over),
             resources.getString(R.string.you_scored_message,viewModel.score.value!!)
         ,resources.getString(R.string.restart_game),
         resources.getString(R.string.exit_game))
@@ -96,9 +111,9 @@ class MainFragment : Fragment() {
             .setTitle(title)
             .setMessage(message)
             .setPositiveButton(positiveOption){_,_, ->
-                exitGame()
+                restartGame()
             }.setNegativeButton(negativeOption){_,_, ->
-               restartGame()
+               exitGame()
            }.show()
     }
 
