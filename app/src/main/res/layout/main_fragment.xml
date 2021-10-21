@@ -13,6 +13,9 @@
             type="int" />
 
         <variable
+            name="unscrambledWord"
+            type="String"/>
+        <variable
             name="wordsCount"
             type="int" />
 
@@ -58,28 +61,31 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textAppearance="?attr/textAppearanceHeadline2"
+            android:singleLine="true"
+            android:textAppearance="?attr/textAppearanceHeadline3"
             app:layout_constraintEnd_toStartOf="@+id/guideline5"
             app:layout_constraintStart_toStartOf="@+id/guideline4"
             app:layout_constraintTop_toTopOf="@+id/guideline2"
-            android:text="@{mainViewModel.currentUnscrambledWord}"
+            android:text="@{unscrambledWord}"
             tools:text="MALES" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-
-            app:layout_constraintBottom_toTopOf="@+id/guideline3"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/submit_button"
             app:layout_constraintEnd_toStartOf="@+id/guideline5"
-            app:layout_constraintStart_toStartOf="@+id/guideline4"
-            app:layout_constraintTop_toBottomOf="@+id/scrambledWordView">
+            app:layout_constraintStart_toStartOf="@+id/guideline4">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextField_forInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:singleLine="true"
                 android:textAlignment="center"
                 android:textStyle="bold"
                 tools:layout_editor_absoluteX="228dp"
@@ -92,22 +98,22 @@
         <Button
             android:id="@+id/submit_button"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:text="@string/submit_button_label_string"
             app:layout_constraintBottom_toTopOf="@+id/guideline3"
             app:layout_constraintEnd_toStartOf="@+id/guideline6"
             app:layout_constraintStart_toStartOf="@+id/guideline4"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+            />
 
         <Button
             android:id="@+id/skip_button"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:text="@string/skip_button_label_string"
             app:layout_constraintBottom_toTopOf="@+id/guideline3"
             app:layout_constraintEnd_toStartOf="@+id/guideline5"
             app:layout_constraintStart_toStartOf="@+id/guideline6"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+           />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline2"
@@ -128,14 +134,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.20" />
+            app:layout_constraintGuide_percent="0.15" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.80" />
+            app:layout_constraintGuide_percent="0.85" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline6"

@@ -2,6 +2,7 @@ package com.huseyinuslu.unscrambleapponmyown.ui.main
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.huseyinuslu.unscrambleapponmyown.R
 import com.huseyinuslu.unscrambleapponmyown.databinding.MainFragmentBinding
 import com.huseyinuslu.unscrambleapponmyown.ui.main.data.AllOfWords
+import java.lang.Exception
 
 class MainFragment : Fragment() {
 
@@ -44,8 +46,6 @@ class MainFragment : Fragment() {
         binding.mainViewModel = viewModel
         binding.maxNoOfWords = AllOfWords.MAX_OF_NO_WORDS
 
-        viewModel.getNewUnscrambledWord()
-
         viewModel.score.observe(viewLifecycleOwner){changedInt ->
             changedInt?.let {
                 binding.score = it
@@ -58,6 +58,12 @@ class MainFragment : Fragment() {
             }
         }
 
+        viewModel.currentUnscrambledWord.observe(viewLifecycleOwner){onChangedWord ->
+            onChangedWord?.let {
+             binding.unscrambledWord = it
+            }
+        }
+
         binding.apply {
             submitButton.setOnClickListener{submitWord()}
             skipButton.setOnClickListener{skipWord()}
@@ -66,17 +72,19 @@ class MainFragment : Fragment() {
 
     private fun submitWord(){
         val answer = binding.editTextFieldForInput.text.toString()
-    if(viewModel.isAnswerCorrect(answer)){
-        setErrorAccordingToWhetherAnswerIsCorrectOrNot(true)
-        if(viewModel.areThereAnyWordsLeft()){
-            viewModel.getNewUnscrambledWord()
-        }else{
-            onWordsFinished()
-        }
-    }else{
-        setErrorAccordingToWhetherAnswerIsCorrectOrNot(false)
-    }
+        binding.editTextFieldForInput.setText("")
 
+            if(viewModel.isAnswerCorrect(answer)){
+                setErrorAccordingToWhetherAnswerIsCorrectOrNot(false)
+                if(viewModel.areThereAnyWordsLeft()){
+                    viewModel.getNewUnscrambledWord()
+                }else{
+
+                    onWordsFinished()
+                }
+            }else{
+                setErrorAccordingToWhetherAnswerIsCorrectOrNot(true)
+            }
     }
 
     private fun skipWord(){
@@ -90,7 +98,6 @@ class MainFragment : Fragment() {
     //TODO: this is where there is an error running the simulator..
     private fun setErrorAccordingToWhetherAnswerIsCorrectOrNot(error : Boolean){
         if(error){
-            binding.editTextFieldForInput.error = resources.getString(R.string.set_error_false)
             binding.textInputLayout.error = resources.getString(R.string.set_error_false)
             binding.textInputLayout.isErrorEnabled = true
         }else{
