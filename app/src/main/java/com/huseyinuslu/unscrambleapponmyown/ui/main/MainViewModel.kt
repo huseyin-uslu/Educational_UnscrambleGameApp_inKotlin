@@ -1,6 +1,5 @@
 package com.huseyinuslu.unscrambleapponmyown.ui.main
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -45,7 +44,6 @@ class MainViewModel : ViewModel() {
         if(listOfWordsUsed.contains(currentWord)){
             getNewUnscrambledWord()
         }else{
-            Log.d("currentWord : ","current = $currentWord")
             _currentUnscrambledWord.value = String(charEdWord)
             listOfWordsUsed.add(currentWord)
             _countOfWords.value = _countOfWords.value!!.inc()
